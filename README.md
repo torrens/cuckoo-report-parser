@@ -2,9 +2,14 @@
 A python project to help read Cuckoo Sandbox report files.
 
 Cuckoo report files can be very large and in my recent research I used the code in this repository to parse Cuckoo report files.
-I found that attempting to load the files into memory failed and I wasn't able to find a decent Python stream parser for JSON.
+I found that attempting to load the files into memory failed and I wasn't able to find a working Python stream parser.
 Instead, my strategy was to first index certain JSON blocks in the report files and then use those indexes to seek to 
-specific file locations and then only read parts of the files into memory.
+specific file locations within the file.  This technique reduced the amount of memory required to read the files.
+
+
+While this technique is brittle as it uses a fixed string to index the report file, which may change over time,
+I did use it to successfully index and parse nearly 2000 Cuckoo report files.  Previously, I couldn't find a solution to 
+parse such large files.
 
 ## index-reports.py
 
